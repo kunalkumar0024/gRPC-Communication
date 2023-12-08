@@ -1,0 +1,276 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+		 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		 xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<groupId>org.springframework.boot</groupId>
+		<artifactId>spring-boot-starter-parent</artifactId>
+		<version>2.2.8.RELEASE</version>
+		<relativePath /> <!-- lookup parent from repository -->
+	</parent>
+	<groupId>com.kunal</groupId>
+	<artifactId>clientGrpc</artifactId>
+	<version>0.0.1</version>
+	<packaging>jar</packaging>
+	<name>clientGrpc</name>
+	<description>clientGrpc</description>
+
+	<properties>
+		<java.version>1.8</java.version>
+		<spring-cloud.version>1.2.6.RELEASE</spring-cloud.version>
+		<grpc.version>1.59.0</grpc.version>
+		<protoc.version>3.25.0</protoc.version>
+		<netty.tcnative.version>2.0.62.Final</netty.tcnative.version>
+		<netty.handler.version>4.1.101.Final</netty.handler.version>
+<!--		<sonar.dynamicAnalysis>reuseReports</sonar.dynamicAnalysis>-->
+<!--		<sonar.java.codeCoveragePlugin>jacoco</sonar.java.codeCoveragePlugin>-->
+<!--		<sonar.surefire.reportsPath>/target/surefire-reports</sonar.surefire.reportsPath>-->
+<!--		<sonar.jacoco.reportPath>target/jacoco.exec</sonar.jacoco.reportPath>-->
+<!--		<sonar.jacoco.reportPaths>target/jacoco-it.exec</sonar.jacoco.reportPaths>-->
+<!--		<sonar.coverage.exclusions>-->
+<!--			**/config/**/*.java,-->
+<!--			**/grpccleint/**/*.java,-->
+<!--			**/model/**/*.java,-->
+<!--			**/entity/**/*.java,-->
+<!--			**/exception/**/*.java,-->
+<!--			**/filter/**/*.java,-->
+<!--			**/repository/**/*.java,-->
+<!--			**/service/*.java,-->
+<!--			**/service/**/AepsServiceBase.java,-->
+<!--			**/controller/**/CacheController.java,-->
+<!--			**/service/impl/GrpcServiceImpl.java,-->
+<!--			**/context/**/*.java,-->
+<!--			**/AepsComposerApplication.java-->
+<!--		</sonar.coverage.exclusions>-->
+	</properties>
+
+	<dependencies>
+
+
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-web</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-tomcat</artifactId>
+			<!--			<scope>provided</scope>-->
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-test</artifactId>
+			<scope>test</scope>
+		</dependency>
+		<!-- https://mvnrepository.com/artifact/com.google.guava/guava -->
+		<dependency>
+			<groupId>com.google.guava</groupId>
+			<artifactId>guava</artifactId>
+			<version>20.0</version>
+		</dependency>
+		<!-- https://mvnrepository.com/artifact/com.google.code.gson/gson -->
+		<dependency>
+			<groupId>com.google.code.gson</groupId>
+			<artifactId>gson</artifactId>
+			<version>2.8.5</version>
+		</dependency>
+		<dependency>
+			<groupId>org.json</groupId>
+			<artifactId>json</artifactId>
+			<version>20160807</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-actuator</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>io.grpc</groupId>
+			<artifactId>grpc-protobuf</artifactId>
+			<version>${grpc.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>io.grpc</groupId>
+			<artifactId>grpc-stub</artifactId>
+			<version>${grpc.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>io.grpc</groupId>
+			<artifactId>grpc-netty</artifactId>
+			<version>1.33.0</version>
+			<exclusions>
+				<exclusion>
+					<groupId>io.netty</groupId>
+					<artifactId>netty-buffer</artifactId>
+				</exclusion>
+				<!-- Add more exclusions if needed -->
+			</exclusions>
+		</dependency>
+		<dependency>
+			<groupId>io.netty</groupId>
+			<artifactId>netty-handler</artifactId>
+			<version>${netty.handler.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>io.netty</groupId>
+			<artifactId>netty-tcnative-boringssl-static</artifactId>
+			<version>${netty.tcnative.version}</version>
+			<scope>runtime</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>org.projectlombok</groupId>
+			<artifactId>lombok</artifactId>
+			<version>1.18.24</version>
+			<scope>provided</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>com.openpojo</groupId>
+			<artifactId>openpojo</artifactId>
+			<version>0.9.1</version>
+			<scope>test</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>org.mockito</groupId>
+			<artifactId>mockito-inline</artifactId>
+			<version>2.13.0</version>
+			<scope>test</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>org.mockito</groupId>
+			<artifactId>mockito-junit-jupiter</artifactId>
+			<scope>test</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>org.jacoco</groupId>
+			<artifactId>jacoco-maven-plugin</artifactId>
+			<version>0.8.8</version>
+		</dependency>
+
+	</dependencies>
+
+
+	<build>
+		<plugins>
+
+			<plugin>
+				<groupId>com.github.os72</groupId>
+				<artifactId>protoc-jar-maven-plugin</artifactId>
+				<version>3.11.4</version>
+				<executions>
+					<execution>
+						<phase>generate-sources</phase>
+						<goals>
+							<goal>run</goal>
+						</goals>
+						<configuration>
+							<includeMavenTypes>direct</includeMavenTypes>
+							<inputDirectories>
+								<include>src/main/resources</include>
+							</inputDirectories>
+							<outputTargets>
+								<outputTarget>
+									<type>java</type>
+									<outputDirectory>src/main/java</outputDirectory>
+								</outputTarget>
+								<outputTarget>
+									<type>grpc-java</type>
+									<pluginArtifact>io.grpc:protoc-gen-grpc-java:1.33.0</pluginArtifact>
+									<outputDirectory>src/main/java</outputDirectory>
+								</outputTarget>
+							</outputTargets>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+
+			<plugin>
+				<groupId>org.jacoco</groupId>
+				<artifactId>
+					jacoco-maven-plugin</artifactId>
+				<version>0.8.8</version>
+				<executions>
+					<execution>
+						<id>prepare-agent</id>
+						<goals>
+							<goal>prepare-agent</goal>
+						</goals>
+					</execution>
+
+					<execution>
+						<id>
+							post-unit-test</id>
+						<goals>
+							<goal>report</goal>
+						</goals>
+					</execution>
+
+					<execution>
+						<id>report</id>
+						<phase>test</phase>
+						<goals>
+							<goal>report</goal>
+						</goals>
+					</execution>
+				</executions>
+				<configuration>
+					<excludes>
+<!--						<exclude>**/grpccleint/**/*.java</exclude>-->
+<!--						<exclude>**/model/**/*.java</exclude>-->
+<!--						<exclude>**/config/**/*.java</exclude>-->
+<!--						<exclude>**/entity/**/*.java</exclude>-->
+<!--						<exclude>**/exception/**/*.java</exclude>-->
+<!--						<exclude>**/filter/**/*.java</exclude>-->
+<!--						<exclude>**/repository/**/*.java</exclude>-->
+<!--						<exclude>**/service/*.java</exclude>-->
+<!--						<exclude>**/service/**/AepsServiceBase.java</exclude>-->
+<!--						<exclude>**/controller/**/CacheController.java</exclude>-->
+<!--						<exclude>**/service/impl/GrpcServiceImpl.java</exclude>-->
+<!--						<exclude>**/context/**/*.java</exclude>-->
+<!--						<exclude>**/AepsComposerApplication.java</exclude>-->
+<!--						&lt;!&ndash;						<exclude>**/service/**/*.java</exclude>&ndash;&gt;-->
+<!--						&lt;!&ndash;						<coverage.exlude>**/AepsKotakApplicationTests.java</coverage.exlude>&ndash;&gt;-->
+<!--						<coverage.exclude>**/grpccleint/**/*.java</coverage.exclude>-->
+<!--						<coverage.exclude>**/model/**/*.java</coverage.exclude>-->
+<!--						<coverage.exclude>**/context/**/*.java</coverage.exclude>-->
+<!--						<coverage.exclude>**/config/**/*.java</coverage.exclude>-->
+<!--						<coverage.exclude>**/entity/**/*.java</coverage.exclude>-->
+<!--						<coverage.exclude>**/exception/**/*.java</coverage.exclude>-->
+<!--						<coverage.exclude>**/filter/**/*.java</coverage.exclude>-->
+<!--						<coverage.exclude>**/repository/**/*.java</coverage.exclude>-->
+<!--						<coverage.exclude>**/AepsComposerApplication.java</coverage.exclude>-->
+<!--						<coverage.exclude>**/service/*.java</coverage.exclude>-->
+<!--						<coverage.exclude>**/service/**/AepsServiceBase.java</coverage.exclude>-->
+<!--						<coverage.exclude>**/controller/**/CacheController.java</coverage.exclude>-->
+<!--						<coverage.exclude>**/service/impl/GrpcServiceImpl.java</coverage.exclude>-->
+
+						<!--						<coverage.exclude>**/ServletInitializer.java</coverage.exclude>-->
+					</excludes>
+					<!--					<includes>-->
+					<!--						<include>**/impl/**/*.java</include>-->
+					<!--					</includes>-->
+				</configuration>
+			</plugin>
+
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>3.8.1</version>
+			</plugin>
+
+			<plugin>
+				<groupId>org.sonarsource.scanner.maven</groupId>
+				<artifactId>sonar-maven-plugin</artifactId>
+				<version>3.6.0.1398</version>
+			</plugin>
+		</plugins>
+	</build>
+
+</project>

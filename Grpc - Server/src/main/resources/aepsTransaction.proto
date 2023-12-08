@@ -1,0 +1,15 @@
+syntax = "proto3";
+
+option java_package = "com.kunal.grpccleint";
+
+service AepsTansaction{
+  rpc processTransaction(TransactionRequest) returns(TransactionResponse);
+}
+
+message TransactionRequest {
+    string request = 1;
+}
+
+message TransactionResponse {
+    string response = 1;
+}
